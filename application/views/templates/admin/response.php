@@ -21,7 +21,7 @@
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
 
 
-  <div class="container">
+  <div class="container" >
     <div class="row">
       <div class="col-md-12">
         <h4>
@@ -29,7 +29,7 @@
           Réponses à l'enquête <?php echo (isset($responses) ? " - <a target='_blank' href='mailto:" . $responses["email"] . "'>" . $responses["email"] . "</a>" : ""); ?></small>
         </h4>
         <?php if(isset($valid_response) && $valid_response): ?>
-        <ul class="list-group">
+        <ul class="list-group" >
           <?php foreach($responses["responses"] as $response): ?>
             <li class="list-group-item">
               <h5 class="list-group-item-heading">

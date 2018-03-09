@@ -5,37 +5,39 @@ class Admin extends CI_Controller {
   function __construct() {
     parent::__construct();
 
-    // charge helpers/models
+    /** charge helpers/models
+    */
+
     $this->load->helper('url');
     $this->load->model("user_model");
     $this->load->library("session");
     $this->load->model("survey_model");
+    $this->load->library('table');
   }
+ /** Fonction qui charge les templates pour la page de résultat sous forme de tableau*/
+  public function chart()
+  {
+    $this->requiresLogin();
+    $this->load->view('templates/admin/nav');
+    $this->load->view('chart');
+    $this->load->view('templates/admin/footer');
 
+ }
+/** Fonction qui  test si un user est loggué , si non , renvoi vers page de connexion*/
   private function requiresLogin() {
 
     if(!$this->user_model->isLoggedIn()) {
       redirect("admin/login", "redirect");
     }
   } 
-
+/** Fonction qui test si un user est loggué , si oui , renvoi vers le dashboard*/
   private function alreadyLoggedIn() {
 
     if($this->user_model->isLoggedIn()) {
       redirect("admin/dashboard", "redirect");
     }
   }
-public function envoi(){
-  $contact= $this->db->select('(SELECT email FROM users)');
-    if($this->user_model->isLoggedIn()) {
-   $this->load->view('templates/admin/nav');
-   $this->load->view('email',$contact);
-  $this->load->view('templates/admin/footer');
-}else{
-  redirect("/admin/login","redirect");
-}
-
-}
+/** Fonction qui connecte un user , si succès , renvoi vers dashboard, si erreur , affiche page d'erreur. Si pas d'admin enregistré ,renvoi vers la page d'enregistrement*/
   public function login()
   {
 
@@ -62,12 +64,12 @@ public function envoi(){
     $this->load->view('templates/admin/login', $data);
     $this->load->view('templates/admin/footer');
   }
-
+/** Fonction de deconnexion: renvoi vers la page de login*/
   public function logout() {
     $this->user_model->logout();
     redirect("admin/login", "refresh");
   }
-//création d'un compte
+/** Fonction de création d'un compte admin, verifie si un compte existe , si oui , redirection vers page login , si non, accès a la page signup et possibilité de création*/
   public function signup() {
 
     // Vérifie si un utilisateur existe
@@ -91,7 +93,7 @@ public function envoi(){
     $this->load->view('templates/admin/signup', $data);
     $this->load->view('templates/admin/footer');
   }
-
+/** Fonction du dashboard, le login est requis. Affiche la liste des survey et  des réponses avec date,heure et email de la personne*/
   public function dashboard() {
 
     $this->requiresLogin();

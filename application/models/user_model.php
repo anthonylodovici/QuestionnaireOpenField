@@ -6,8 +6,10 @@ class User_model extends CI_Model {
     parent::__construct();
   }
 
-  /*
-  demande de log in d'un user
+  /**
+  Fonction de log in d'un user
+  Si l'user existe, récupération dans la bdd en comparant aux infos tapée
+  si il exite pas , affichage d'une erreur
   */
   function login() {
 
@@ -44,15 +46,15 @@ class User_model extends CI_Model {
   }
 
   /*
-  Verifie s'il y a un utilisateur connecté
+  Fonction qui Verifie s'il y a un utilisateur connecté
   */
   function isLoggedIn() {
 
     return ($this->session->userdata("logged_in") !== FALSE);
   }
 
-  /*
-  Deconnecte l'utilisateur
+  /**
+  Fonction qui deconnecte l'utilisateur
   */
   function logout() {
     $userdata = array(
@@ -64,8 +66,9 @@ class User_model extends CI_Model {
     $this->session->sess_destroy();
   }
 
-  /*
-  Enregistre un utilisateur qui vient de s'inscrire
+  /**
+  Fonction qui enregistre un utilisateur qui vient de s'inscrire
+  Vérifie la validité de l'email et du mot de passe , verifie que l'email n'est pas déjà utilisé , test la longueur du mot de passe , crypte le mot de passe et crée l'utilisateur
   */
   function addUser() {
 
@@ -109,8 +112,8 @@ class User_model extends CI_Model {
     return array("errors" => $errors, "success" => (empty($errors)));
   }
 
-  /*
-  Compte les utilisateurs dans la table des admin
+  /**
+  Fonction qui compte les utilisateurs dans la table des admin
   */
   function getUserCount() {
 

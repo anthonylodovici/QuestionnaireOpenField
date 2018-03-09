@@ -24,7 +24,7 @@
     <div class="row">
       <div class="col-md-12">
         <h4>
-          <span class="glyphicon glyphicon-th-list"></span>
+          <span class="fa fa-th-list"></span>
           Enquêtes en cours:
         </h4>
         <?php if(isset($active_surveys) && $active_surveys != null): ?>
@@ -32,39 +32,43 @@
             <?php foreach($active_surveys as $survey): ?>
               <a href="<?php echo base_url() . "questions/" . $survey->slug; ?>" class="list-group-item">
                 <?php echo $survey->title; ?>
-                <span class="glyphicon glyphicon-chevron-right pull-right "></span>
+                <span class="fa fa-chevron-right pull-right "></span>
               </a>
             <?php endforeach; ?>
           </div>
         <?php else: ?>
-          <div class="alert alert-warning text-center" role="alert">
+          <div class="alert alert-secondary text-center" role="alert" style="border-color: #7B230B;">
               il n'y a aucune enquête en cours
           </div>
         <?php endif; ?>
       </div>
       <div class="col-md-12">
         <h4>
-          <span class="glyphicon glyphicon-comment"></span>
-          Résultats aux enquêtes:
+          
+          <br></br>
+          <span class="fa fa-comment"></span> Résultats aux enquêtes:
         </h4>
         <?php if(isset($survey_responses) && $survey_responses != null): ?>
-          <div class="list-group">
+          <div class="list-group" style="border-color: #7B230B;">
             <?php foreach($survey_responses as $response): ?>
               <a href="<?php echo base_url() . "admin/response/" . $response->survey_slug . "/" . $response->id; ?>" class="list-group-item">
                 <?php echo $response->survey_title; ?>
                 <i class="text-muted"> <?php echo $response->email; ?></i>
                 <span class="pull-right display-block-sm">
-                  <span class="text-muted"> <?php echo date("F jS, Y ", strtotime($response->created)); ?></span>
-                  <span class="glyphicon glyphicon-chevron-right"></span>
+                  <span class="text-muted"> <?php echo date(strftime('%d-%m-%Y %H:%M:%S',strtotime($response->created))); ?></span>
+                  <span class="fa fa-chevron-right"></span>
                 </span>
               </a>
+                </div>
             <?php endforeach; ?>
-          </div>
+          <br/><br/>
         <?php else: ?>
-          <div class="alert alert-warning text-center" role="alert">
+          <div class="alert alert-secondary text-center" role="alert" style="border-color: #7B230B;">
               Personne n'a répondu à l'enquête.
           </div>
         <?php endif; ?>
+        <br></br>
       </div>
     </div>
   </div>
+  <br/> <div align="center"><h6><a class="btn btn-secondary btn-lg center-block"  href=" <?php echo base_url()."admin/chart"?>"> Analyse des enquêtes</a></h6></div><br/>

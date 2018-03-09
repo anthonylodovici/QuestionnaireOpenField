@@ -43,6 +43,7 @@ $route['admin'] = "admin/login";
 $route['404_override'] = '';
 $route['questions/(:any)'] = "survey/questions/$1";
 $route['apropos/(:any)']="survey/apropos";
-$route['envoi'] = 'admin/envoi';
+$route['charts']="admin/chart";
+$route['chart']="chart/affich";
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

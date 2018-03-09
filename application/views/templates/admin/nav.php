@@ -37,7 +37,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<?php echo base_url();?>admin/logout" class="list-group-item"><span class="fa fa-sign-out-alt"></span>Se déconnecter</a>
+              <a class="nav-link" href="<?php echo base_url();?>admin/logout" class="list-group-item"><span class="fa fa-sign-out-alt"></span> Se déconnecter</a>
             </li>
             </li>
           </ul>

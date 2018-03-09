@@ -6,8 +6,9 @@ class Survey_Model extends CI_Model {
     parent::__construct();
   }
 
-  /*
-  Récupère le survey demandé dans la bdd
+  /**
+  Fonction qui récupère le survey demandé dans la bdd
+  @return : null
   */
   function getSurveyPrefix($slug) {
 
@@ -22,7 +23,8 @@ class Survey_Model extends CI_Model {
   }
 
   /*
-  Récupère tout les survey actifs
+  Fonction qui récupère tout les survey actifs afin de les afficher dans le dashboard
+  @return la liste des survey actifs
   */
   function getActiveSurveys() {
 
@@ -30,9 +32,7 @@ class Survey_Model extends CI_Model {
     return $this->db->get()->result();
   }
 
-  /*
-  merge two arrays by the 'created' property in contained objects
-  */
+  
   function mergeByCreateProperty($arrayOne, $arrayTwo) {
 
     if(empty($arrayOne)) return $arrayTwo;
@@ -58,8 +58,9 @@ class Survey_Model extends CI_Model {
     return $result;
   }
 
-  /*
-  Récupère tout les résultats aux surveys
+  /**
+  Fonction qui récupère tout les résultats aux surveys afin de les afficher dans le dashboard
+  @return les réponses aux survey
   */
   function getSurveyResponses() {
 
@@ -85,9 +86,10 @@ class Survey_Model extends CI_Model {
   }
 
   /*
-  Récuprère tout les données des résultats
+   Fonction qui récuprère tout les données des résultats
   param - surveySlug - Le nom du survey
   param - responseId - L'identifiant de la réponse
+  return - les données des réponses
   */
   function getResponseData($surveySlug, $responseId) {
 
@@ -139,7 +141,7 @@ class Survey_Model extends CI_Model {
   }
 
   /*
-  Récupère tout les données selon le préfixe
+  Fonction qui récupère tout les données selon le préfixe
   param - surveyPrefix of table - exemple 's1'
   return - null si non valide 
   
@@ -154,7 +156,7 @@ class Survey_Model extends CI_Model {
 
       foreach($question_query->result() as $question) {
           // Récupère toute les réponses pour les questions de type 0 et de type 3
-        if($question->question_type == 0 || $question->question_type == 3) {
+        if($question->question_type == 0 || $question->question_type == 3|| $question->question_type ==4 ||$question->question_type==5 ||$question->question_type==6 || $question->question_type==7) {
 
 
           $this->db->select("*")->from($surveyPrefix . "_options")->where("question_id", $question->id);
@@ -172,7 +174,7 @@ class Survey_Model extends CI_Model {
     } // end if - valid table
 
     return null;
-  } // end function - get les donnée du survey
+  }
 
   /*
   Verfie la validité des infos saisies par la personne qui repond au survey
@@ -245,12 +247,7 @@ class Survey_Model extends CI_Model {
     $this->db->select("*")->from("survey_users")->where("email", $responses["email"]);
     $emailQuery = $this->db->get();
     $userId = 0;
-    if($emailQuery->num_rows() > 0) {
 
-      // recupere l'id de l'user
-      $userId = $emailQuery->row()->id;
-    }
-    else {
 
       // ajoute les infos de la personne ayant repondu dans la bdd
       $this->db->insert("survey_users", array("email" => $responses["email"]));
@@ -259,7 +256,8 @@ class Survey_Model extends CI_Model {
       $this->db->select("*")->from("survey_users")->where("email", $responses["email"]);
       $emailQuery = $this->db->get();
       $userId = $emailQuery->row()->id;
-    }
+    
+
 
     // create a response & retrieve the id
     $responseId = 0;
@@ -281,7 +279,7 @@ class Survey_Model extends CI_Model {
           $response_data["question_id"] = $response->id;
 
           // check si la question est à choix multiple
-          if($response->question_type == 0 || $response->question_type == 3) {
+          if($response->question_type == 0 || $response->question_type == 3 || $response->question_type == 4 ||$response->question_type == 5||$response->question_type == 6||$response->question_type == 7) {
 
             // associe les options de reponse et ignore le texte
             $response_data["option_id"] = $single_response;
@@ -311,8 +309,8 @@ class Survey_Model extends CI_Model {
     }
 
     $this->db->insert_batch($surveyPrefix . "_response_answers", $insert_data);
-
     return null;
+
   }
 }
 

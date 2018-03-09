@@ -30,9 +30,9 @@
           <h1><b>Enquête de satisfaction OpenField</b></h1>
           <p>Vous avez récemment pris contact avec notre sevice-client et nous aimerions nous assurer que vous êtes satisfait par le service offert. 
 
-      Le résultat nous sera utile pour améliorer notre service. Vos réponses resteront confidentielles et ne seront utilisées que dans le cadre de l’enquête menée par OpenField. 
+      Le résultat nous permettra d'améliorer nos services. Vos réponses ne seront utilisées que dans le cadre de l’enquête menée par OpenField. 
 
-      Merci de prendre un moment pour compléter cette petite enquête, y répondre vous prendra environ 5 minutes.
+      Merci de prendre un moment pour compléter cette enquête, y répondre vous prendra seulement 5 minutes.
     </p>
     
         <?php if(isset($active_surveys) && $active_surveys != null): ?>
@@ -41,6 +41,7 @@
               <a class="btn btn-secondary btn-lg" href="<?php echo base_url() . "questions/" . $survey->slug; ?>" class="list-group-item">
                 <span class="fa fa-arrow-alt-circle-right"></span> Commencer le sondage
               </a>
+
             <?php endforeach; ?>
           </div>
         <?php else: ?>

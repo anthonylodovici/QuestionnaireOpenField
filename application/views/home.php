@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -53,7 +54,6 @@
               	<br/>
               	<br/><a href="http://www.twitter.com/OpenFieldEu"><h2 class="fab fa-twitter"></h2></a>
               	<a href="http://www.linkedin.com/company/505058"><h2 class="fab fa-linkedin"></h2></a>
-              	<a href="http://www.fr.pinterest.com/openfield0247/"><h2 class="fab fa-pinterest"></h2></a>
               </a>
             </div>
           </div>
@@ -72,7 +72,7 @@
         <!-- /.col-md-4 -->
 
       </div>
-      
+            <hr/>
     </div>
     <!-- Bootstrap core JavaScript -->
     <script src="assets/jquery/jquery.min.js"></script>

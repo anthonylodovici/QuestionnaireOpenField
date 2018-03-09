@@ -9,7 +9,7 @@ class Survey extends CI_Controller {
       $this->load->model("survey_model");
       $this->load->library('email');
   }
-
+/**Page d'accueil*/
   public function index()
   {
     $data["active_surveys"] = $this->survey_model->getActiveSurveys();
@@ -18,7 +18,7 @@ class Survey extends CI_Controller {
     $this->load->view('home');
     $this->load->view('templates/survey/footer');
   }
-
+/** Page nous contacter*/
 public function apropos()
   {
     $this->load->view('navabout');
@@ -26,7 +26,7 @@ public function apropos()
     $this->load->view('templates/survey/footer');
   }
   /**
-   * renvoi une erreur si le prefixe du survey n'est pas passé en parametre de l'url
+   * Fonction qui récupère les questions en faisant appel au modele
    */
   public function questions($survey = "")
   {
@@ -37,10 +37,9 @@ public function apropos()
     $data["show_questions"] = true;
     $data["survey_errors"] = false;
 
-    // Verifie si le nom du survey passé en url est valide
+    // Si non null , rempli avec les infos sur le survey
     if($surveyData != null) {
 
-      // populate survery information
       $surveyPrefix = $surveyData->prefix;
       $data["survey_title"] = $surveyData->title;
       $data["survey_subtitle"] = $surveyData->subtitle;
